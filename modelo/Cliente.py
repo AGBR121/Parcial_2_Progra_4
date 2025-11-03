@@ -9,3 +9,6 @@ class Cliente:
     def agregarFactura(self, factura: Factura) -> None:
         self.pedidos.append(factura)
 
+    def mostrarHistorial(self):
+        for factura in self.pedidos:
+            print(factura)

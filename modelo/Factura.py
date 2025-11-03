@@ -10,6 +10,7 @@ class Factura:
 
     def agregarProducto(self, producto: Producto) -> None:
         self.productos.append(producto)
+        self.total = self.calcular_total()
 
     def calcular_total(self) -> float:
         self.total = sum(p.valor for p in self.productos)
