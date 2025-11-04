@@ -1,4 +1,4 @@
-from Factura import Factura
+from modelo.Factura import Factura
 
 class Cliente:
     def __init__(self, nombre: str, cedula: int):
@@ -12,3 +12,6 @@ class Cliente:
     def mostrarHistorial(self):
         for factura in self.pedidos:
             print(factura)
+
+    def __str__(self):
+        return f"Nombre: {self.nombre}, Cédula: {self.cedula}, Facturas: {len(self.pedidos)}"

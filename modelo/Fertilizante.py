@@ -1,5 +1,4 @@
-from ProductoControl import ProductoControl
-
+from modelo.ProductoControl import ProductoControl
 from datetime import date
 
 class Fertilizante(ProductoControl):
@@ -9,3 +8,8 @@ class Fertilizante(ProductoControl):
         if not isinstance(fechaUltimaAplicacion, date):
             raise TypeError("La fecha de última aplicación debe ser un objeto date.")
         self.fechaUltimaAplicacion = fechaUltimaAplicacion
+
+    def __str__(self):
+        return (f"Fertilizante: {self.nombre} "
+            f"(Última aplicación: {self.fechaUltimaAplicacion}, "
+            f"Frecuencia: {self.frecuenciaAplicacion}) - ${self.valor}")
