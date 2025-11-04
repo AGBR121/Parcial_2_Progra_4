@@ -36,6 +36,10 @@ def test_factura_composicion_y_total():
     for productos in factura.productos:
         print("   →", productos)
 
+    print("\nComposición de objetos:")
+    print(f"Factura del {factura.fecha} contiene {len(factura.productos)} productos:")
+    for producto in factura.productos:
+        print(f"   Tipo: {producto.__class__.__name__} - {producto}")
 
 if __name__ == "__main__":
     test_factura_composicion_y_total()
