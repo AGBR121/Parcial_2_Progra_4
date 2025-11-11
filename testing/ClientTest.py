@@ -1,58 +1,54 @@
 import sys, os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
+import unittest
 from datetime import date
 from modelo.Cliente import Cliente
 from modelo.Factura import Factura
 from modelo.Antibiotico import Antibiotico
+from modelo.Fertilizante import Fertilizante
+from modelo.ControlPlaga import ControlPlaga
 
-print("===== INICIO TEST CLIENTE =====")
 
-def test_historial_cliente():
-    # Preparar datos
-    cliente = Cliente("Carlos Ramírez", 123456789)
-    factura1 = Factura(date(2025, 11, 1), cliente)
-    factura2 = Factura(date(2025, 11, 3), cliente)
+class TestCliente(unittest.TestCase):
+    def setUp(self):
+        self.cliente = Cliente("Carlos Ramírez", 123456789)
+        self.factura1 = Factura(date(2025, 11, 1), self.cliente)
+        self.factura2 = Factura(date(2025, 11, 2), self.cliente)
 
-    producto_1 = Antibiotico("Penicilina", 48000, 500, "Porcino")
-    producto_2 = Antibiotico("TetraVet", 52000, 550, "Bovino")
-    producto_3 = Antibiotico("Acetaminofen", 55000, 550, "Bovino")
+        self.antibiotico = Antibiotico("Penicilina", 48000, 500, "Porcino")
+        self.fertilizante = Fertilizante("AgroVida", 40000, "ICA-F-2024", "Cada 30 días", date(2025, 10, 25))
+        self.control_plaga = ControlPlaga("Cyperkill", 32000, "ICA-C-8899", "Cada 15 días", "10 días")
 
-    # Agregar productos a las facturas
-    factura1.agregarProducto(producto_1)
-    factura1.agregarProducto(producto_3)
-    factura2.agregarProducto(producto_2)
+        self.factura1.agregarProducto(self.antibiotico)
+        self.factura1.agregarProducto(self.fertilizante)
+        self.factura2.agregarProducto(self.control_plaga)
 
-    # Validar contenido
-    assert factura1.productos[0].nombre == "Penicilina"
-    assert factura1.productos[1].nombre == "Acetaminofen"
-    assert factura2.productos[0].nombre == "TetraVet"
+        self.cliente.agregarFactura(self.factura1)
+        self.cliente.agregarFactura(self.factura2)
 
-    # Asociar facturas al cliente
-    cliente.agregarFactura(factura1)
-    cliente.agregarFactura(factura2)
+    def test_cliente_datos_basicos(self):
+        self.assertEqual(self.cliente.nombre, "Carlos Ramírez")
+        self.assertEqual(self.cliente.cedula, 123456789)
+        self.assertEqual(len(self.cliente.pedidos), 2)
 
-    # Validar relaciones
-    assert len(cliente.pedidos) == 2
-    assert len(factura1.productos) == 2
-    assert len(factura2.productos) == 1
+    def test_facturas_asociadas(self):
+        self.assertIn(self.factura1, self.cliente.pedidos)
+        self.assertIn(self.factura2, self.cliente.pedidos)
 
-    # Calcular totales
-    total1 = factura1.calcular_total()
-    total2 = factura2.calcular_total()
-    assert total1 == 103000
-    assert total2 == 52000
+    def test_historial_cliente(self):
+        total1 = self.factura1.calcular_total()
+        total2 = self.factura2.calcular_total()
+        self.assertEqual(total1, 88000)
+        self.assertEqual(total2, 32000)
+        self.assertEqual(len(self.factura1.productos), 2)
+        self.assertEqual(len(self.factura2.productos), 1)
 
-    # Mostrar resultados
-    print("\nHistorial de facturas del cliente:")
-    cliente.mostrarHistorial()
+    def test_str_cliente(self):
+        s = str(self.cliente)
+        self.assertIn("Carlos Ramírez", s)
+        self.assertIn("Facturas: 2", s)
 
-    print("\nComposición del cliente -> facturas -> productos:")
-    for f in cliente.pedidos:
-        print(f"Factura ({f.fecha}) contiene {len(f.productos)} productos:")
-        for p in f.productos:
-            print("   →", p)
 
 if __name__ == "__main__":
-    test_historial_cliente()
-    print("===== FIN TEST CLIENTE =====")
+    unittest.main()
