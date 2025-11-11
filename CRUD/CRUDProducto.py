@@ -11,13 +11,13 @@ class CRUDProducto:
     def productos(self):
         return self._productos[:]
 
-    def CrearFertilizante(self, nombre: str, valor: float, registro: str, frecuencia: str, fecha_aplicacion: date):
-        fertilizante = Fertilizante(nombre, valor, registro, frecuencia, fecha_aplicacion)
+    def CrearFertilizante(self, nombre: str, valor: float, registro: str, frecuencia: str, fechaAplicacion: date):
+        fertilizante = Fertilizante(nombre, valor, registro, frecuencia, fechaAplicacion)
         self._productos.append(fertilizante)
         return fertilizante
 
-    def CrearControlPlaga(self, nombre: str, valor: float, registro: str, frecuencia: str, periodo_carencia: str):
-        controlPlaga = ControlPlaga(nombre, valor, registro, frecuencia, periodo_carencia)
+    def CrearControlPlaga(self, nombre: str, valor: float, registro: str, frecuencia: str, periodoCarencia: str):
+        controlPlaga = ControlPlaga(nombre, valor, registro, frecuencia, periodoCarencia)
         self._productos.append(controlPlaga)
         return controlPlaga
     
