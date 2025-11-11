@@ -30,9 +30,4 @@ class CRUDProducto:
         if not self._productos:
             print("No hay productos de control registrados aún.")
             return 
-
-        print("\n=== PRODUCTOS DE CONTROL REGISTRADOS ===")
-        for number, producto in enumerate(self._productos, 1):
-            tipo = producto.__class__.__name__
-            print(f"{number}. [{tipo}] {producto.nombre} - Valor: ${producto.valor}")
-        print("========================================\n")
+        return self._productos[:]
