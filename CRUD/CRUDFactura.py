@@ -9,7 +9,7 @@ class CRUDFactura:
     def CrearFactura(self, cliente: Cliente):
         factura = Factura(date.today(), cliente)
         self._facturas.append(factura)
-        cliente.agregarFactura(factura)
+        cliente.AgregarFactura(factura)
         return factura
 
     def ListarFacturas(self):

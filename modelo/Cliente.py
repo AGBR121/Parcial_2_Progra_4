@@ -27,12 +27,12 @@ class Cliente:
     def pedidos(self):
         return self._pedidos[:]
 
-    def agregarFactura(self, factura: Factura):
+    def AgregarFactura(self, factura: Factura):
         if not isinstance(factura, Factura):
             raise TypeError("Debe agregar una instancia de Factura")
         self._pedidos.append(factura)
 
-    def mostrarDatos(self):
+    def MostrarDatos(self):
         print(f"Nombre: {self._nombre}")
         print(f"Cédula: {self._cedula}")
         print(f"Pedidos: [{', '.join(str(id(f)) for f in self._pedidos)}]")

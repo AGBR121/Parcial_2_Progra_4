@@ -31,17 +31,17 @@ class Factura:
     def total(self):
         return self._total
 
-    def agregarProducto(self, producto: Producto):
+    def AgregarProducto(self, producto: Producto):
         if not isinstance(producto, Producto):
             raise TypeError("Se debe agregar una instancia de Producto")
         self._productos.append(producto)
-        self._recalcular_total()
+        self._RecalcularSuma()
 
-    def _recalcular_total(self):
+    def _RecalcularSuma(self):
         self._total = sum(p.valor for p in self._productos)
 
-    def calcular_total(self):
-        self._recalcular_total()
+    def CalcularTotal(self):
+        self._RecalcularSuma()
         return self._total
 
     def __str__(self):

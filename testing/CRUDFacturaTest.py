@@ -23,13 +23,13 @@ class TestCRUDFactura(unittest.TestCase):
         self.assertIn(self.factura, self.cliente.pedidos)
 
     def test_agregar_productos_a_factura(self):
-        f = self.productos.CrearFertilizante("AgroVida", 40000, "ICA-F-2024", "Cada 30 días", date(2025, 10, 25))
-        c = self.productos.CrearControlPlaga("Cyperkill", 32000, "ICA-C-8899", "Cada 15 días", "10 días")
+        productoFertilizante = self.productos.CrearFertilizante("AgroVida", 40000, "ICA-F-2024", "Cada 30 días", date(2025, 10, 25))
+        productoControlPlaga = self.productos.CrearControlPlaga("Cyperkill", 32000, "ICA-C-8899", "Cada 15 días", "10 días")
 
-        self.factura.agregarProducto(f)
-        self.factura.agregarProducto(c)
+        self.factura.AgregarProducto(productoFertilizante)
+        self.factura.AgregarProducto(productoControlPlaga)
 
-        total = self.factura.calcular_total()
+        total = self.factura.CalcularTotal()
         self.assertEqual(total, 72000)
         self.assertEqual(len(self.factura.productos), 2)
 

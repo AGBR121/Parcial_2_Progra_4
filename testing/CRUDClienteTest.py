@@ -30,10 +30,10 @@ class TestCRUDCliente(unittest.TestCase):
         f = self.productos.CrearFertilizante("AgroVida", 40000, "ICA-F-2024", "Cada 30 días", date(2025, 10, 25))
         c = self.productos.CrearControlPlaga("Cyperkill", 32000, "ICA-C-8899", "Cada 15 días", "10 días")
 
-        factura.agregarProducto(f)
-        factura.agregarProducto(c)
+        factura.AgregarProducto(f)
+        factura.AgregarProducto(c)
 
-        total = factura.calcular_total()
+        total = factura.CalcularTotal()
         self.assertEqual(total, 72000)
         self.assertEqual(len(cliente.pedidos), 1)
         self.assertEqual(len(cliente.pedidos[0].productos), 2)
@@ -43,8 +43,8 @@ class TestCRUDCliente(unittest.TestCase):
         factura = self.facturas.CrearFactura(cliente)
 
         p = self.productos.CrearFertilizante("FertiMax", 50000, "ICA-F-5555", "Cada 30 días", date(2025, 11, 1))
-        factura.agregarProducto(p)
-        factura.calcular_total()
+        factura.AgregarProducto(p)
+        factura.CalcularTotal()
 
         print("\n===== RESULTADO MOSTRAR FACTURAS POR CÉDULA =====")
         self.clientes.MostrarFacturasPorCedula(333444)
